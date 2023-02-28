@@ -1,23 +1,10 @@
-import express from "express";
-import mongoose from "mongoose";
 import "dotenv/config";
+import { connectDB } from "./config/database";
+import server from "./config/server";
 
-const app = express();
+connectDB();
 
-const db =
-  "mongodb+srv://ecommerce:ecommerce@cluster0.yvfrmtd.mongodb.net/?retryWrites=true&w=majority";
-
-mongoose
-  .connect(db, {
-    //useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log("Database is connected");
-  })
-  .catch((e) => console.log(e));
-
-const server = app.listen(8000, () => {
-  const port = server.address().port;
-  const host = server.address().address;
-  console.log(`Listening at ${host} ${port}`);
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`app running on port ${PORT}`);
 });
